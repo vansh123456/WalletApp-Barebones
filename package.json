@@ -4,15 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install-server": "cd backend && npm install",
-    "start-server": "cd backend && node index.js"
+    "install-server": "cd backend && rm -rf node_modules && npm install",
+    "start-server": "npm uninstall bcrypt && npm install bcrypt && cd backend && node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jsonwebtoken": "^9.0.2",
-    "bcrypt": "^5.1.1",
-    "@types/bcrypt": "^5.0.2"
+    "jsonwebtoken": "^9.0.2"
   }
 }
