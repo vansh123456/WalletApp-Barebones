@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const {JWT_SECRET} = require("../config");
 const {User, Account} = require("../db");
 const {authMiddleware} = require("../middleware");
-
+const bcrypt = require("bcrypt");
 const signupBody = zod.object({
     username: zod.string().email(),
 	firstName: zod.string(),
@@ -44,10 +44,12 @@ const signupBody = zod.object({
             message: "Email already taken/Incorrect inputs"
         })
     }
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(req.body.password,salt);
 
     const user = await User.create({
         username: req.body.username,
-        password: req.body.password,
+        password: hash,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
     })
